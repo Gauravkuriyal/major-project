@@ -76,13 +76,13 @@ HarvestIQ was developed as part of the **Smart India Hackathon (SIH)** problem s
 ## 📸 Output Screenshots
 
 ### Home Page
-![Home Page](images/home_page.png)
+![Home Page](HomePage.jpg))
 
 ### Basic Crop Recommendation Interface
-![Basic Crop Recommendation](images/basic_crop.png)
+![Basic Crop Recommendation](cropReccomendation.png)
 
 ### Advanced Crop Recommendation Interface
-![Advanced Crop Recommendation](images/advanced_crop.png)
+![Advanced Crop Recommendation](Advanced%20crop.png)
 
 ### Output Interface
-![Output Interface](images/output.png)
+![Output Interface](CropPrediction.png)

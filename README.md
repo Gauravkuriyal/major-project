@@ -12,7 +12,7 @@ By integrating soil health, weather forecasts, rainfall patterns, and historical
 - **AI/ML Models:** Random Forest, XGBoost, LightGBM, Neural Networks, LSTM for weather-aware predictions.  
 - **Data Scope:** 10–25 years of historical yield data + real-time weather and soil analytics.  
 - **Preprocessing:** k-NN imputation, normalization, feature engineering (Agro-Climatic Index, Cost Index, Land-Efficiency Ratio).  
-- **Accuracy:** Achieved up to **99% prediction accuracy** with CatBoost and Random Forest; reduced RMSE/MAE by **15–20%** compared to baselines.  
+- **Accuracy:** Achieved up to **95% prediction accuracy** with CatBoost and Random Forest; reduced RMSE/MAE by **15–20%** compared to baselines.  
 - **Platform:** Multilingual web & mobile interface with **REST APIs (FastAPI)** and secure authentication.  
 - **Scalability:** Validated across diverse agro-ecological zones; designed for pan-India deployment.  
 

@@ -71,3 +71,18 @@ By integrating soil health, weather forecasts, rainfall patterns, and historical
 
 ## 🏆 Recognition
 HarvestIQ was developed as part of the **Smart India Hackathon (SIH)** problem statement, showcasing innovation in **AI/ML for agriculture** and demonstrating **social impact at national scale**.
+
+---
+## 📸 Output Screenshots
+
+### Home Page
+![Home Page](images/home_page.png)
+
+### Basic Crop Recommendation Interface
+![Basic Crop Recommendation](images/basic_crop.png)
+
+### Advanced Crop Recommendation Interface
+![Advanced Crop Recommendation](images/advanced_crop.png)
+
+### Output Interface
+![Output Interface](images/output.png)

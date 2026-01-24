@@ -53,10 +53,11 @@ By integrating soil health, weather forecasts, rainfall patterns, and historical
 ---
 
 ## 👥 Team
-- **Team Lead:** Jatin (Backend & System Design)  
-- Gaurav Kuriyal  
-- Hritik Kumar  
-- Kunal Saini  
+- **Team Members:** 
+- Jatin (Backend & System Design)  
+- Gaurav Kuriyal (UI Development & Frontend) 
+- Hritik Kumar  (Data collection & Research)
+- Kunal Saini  (Data Preprocessing)
 - **Supervisor:** Ms. Rinki Singh (Assistant Professor, Dept. of CSE, IMS Engineering College)
 
 ---

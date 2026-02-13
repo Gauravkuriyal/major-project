@@ -27,6 +27,7 @@ body {
 .nav-left {
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .logo {
@@ -34,6 +35,7 @@ body {
     margin-right: 8px;
     border-radius: 50%;
     object-fit: cover;
+    border: 1px solid #555555;
 }
 
 .brand {

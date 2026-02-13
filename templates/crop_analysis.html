@@ -28,15 +28,20 @@
     }
 
     @keyframes zoomBackground {
-        from { background-size: 100%; }
-        to { background-size: 110%; }
+        from {
+            background-size: 100%;
+        }
+
+        to {
+            background-size: 110%;
+        }
     }
 
     .analysis-container {
         background: rgba(255, 255, 255, 0.95);
         padding: 30px 40px;
         border-radius: 15px;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
         width: 100%;
         max-width: 600px;
         position: relative;
@@ -174,6 +179,7 @@
             opacity: 0;
             transform: scale(0.7) translateY(50px);
         }
+
         to {
             opacity: 1;
             transform: scale(1) translateY(0);
@@ -246,8 +252,13 @@
     }
 
     @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
 
     @media (max-width: 768px) {
@@ -255,7 +266,7 @@
             flex-direction: column;
             gap: 0;
         }
-        
+
         .analysis-container {
             margin: 20px 10px;
             padding: 20px;
@@ -273,25 +284,29 @@
         <form id="crop-analysis-form">
             <div class="form-section">
                 <h3 style="color: #28a745; margin-bottom: 15px;">Soil Nutrients (mg/kg)</h3>
-                
+
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="N">Nitrogen (N) <span class="help-tip" title="Enter Nitrogen content in soil (mg/kg)">?</span></label>
+                        <label for="N">Nitrogen (N) <span class="help-tip"
+                                title="Enter Nitrogen content in soil (mg/kg)">?</span></label>
                         <input type="number" id="N" placeholder="e.g., 90" min="0" required>
                     </div>
                     <div class="form-group">
-                        <label for="P">Phosphorus (P) <span class="help-tip" title="Enter Phosphorus content in soil (mg/kg)">?</span></label>
+                        <label for="P">Phosphorus (P) <span class="help-tip"
+                                title="Enter Phosphorus content in soil (mg/kg)">?</span></label>
                         <input type="number" id="P" placeholder="e.g., 42" min="0" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="K">Potassium (K) <span class="help-tip" title="Enter Potassium content in soil (mg/kg)">?</span></label>
+                        <label for="K">Potassium (K) <span class="help-tip"
+                                title="Enter Potassium content in soil (mg/kg)">?</span></label>
                         <input type="number" id="K" placeholder="e.g., 43" min="0" required>
                     </div>
                     <div class="form-group">
-                        <label for="ph">Soil pH <span class="help-tip" title="Enter soil pH (usually 4.0 - 9.0)">?</span></label>
+                        <label for="ph">Soil pH <span class="help-tip"
+                                title="Enter soil pH (usually 4.0 - 9.0)">?</span></label>
                         <input type="number" id="ph" placeholder="e.g., 6.5" step="0.1" min="3" max="9.5" required>
                     </div>
                 </div>
@@ -299,7 +314,7 @@
 
             <div class="form-section">
                 <h3 style="color: #28a745; margin-bottom: 15px;">Weather Conditions</h3>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="temperature">Temperature (°C)</label>
@@ -340,14 +355,14 @@
         <div class="main-recommendation" id="main-recommendation">
             <!-- Main recommendation will appear here -->
         </div>
-        
+
         <div class="other-recommendations">
             <h3>Other Suitable Crops:</h3>
             <ul class="recommendation-list" id="other-crops-list">
                 <!-- Other recommendations will appear here -->
             </ul>
         </div>
-        
+
         <button class="new-analysis-btn" onclick="closeModal()">Try New Analysis</button>
     </div>
 </div>
@@ -386,9 +401,24 @@
             submitBtn.textContent = 'Analyzing...';
             submitBtn.disabled = true;
 
+            let weatherFile = ""
+            try {
+                weatherFile = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=746ea7e0035361e7f0b9e383080eb095`);
+            } catch (error) {
+                console.log(error);
+                alert("Can't get the details!!!")
+            }
+
+            let weatherData = await weatherFile.json();
+
+            // if(!formData.temperature)
+            console.log("Temperature : ",weatherData.Math.floor(weatherData.main.temp - 273.15))
+            console.log("Humidity : ",weatherData.main.humidity)
+            console.log("Humidity : ",weatherData.main.humidity)
+
             const response = await fetch('/recommend', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
 
@@ -397,7 +427,7 @@
             }
 
             const data = await response.json();
-            
+
             // Display results
             displayResults(data);
 

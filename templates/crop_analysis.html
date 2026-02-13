@@ -401,20 +401,20 @@
             submitBtn.textContent = 'Analyzing...';
             submitBtn.disabled = true;
 
-            let weatherFile = ""
-            try {
-                weatherFile = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=746ea7e0035361e7f0b9e383080eb095`);
-            } catch (error) {
-                console.log(error);
-                alert("Can't get the details!!!")
-            }
+            // let weatherFile = ""
+            // try {
+            //     weatherFile = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=746ea7e0035361e7f0b9e383080eb095`);
+            // } catch (error) {
+            //     console.log(error);
+            //     alert("Can't get the details!!!")
+            // }
 
-            let weatherData = await weatherFile.json();
+            // let weatherData = await weatherFile.json();
 
             // if(!formData.temperature)
-            console.log("Temperature : ",weatherData.Math.floor(weatherData.main.temp - 273.15))
-            console.log("Humidity : ",weatherData.main.humidity)
-            console.log("Humidity : ",weatherData.main.humidity)
+            // console.log("Temperature : ",weatherData.Math.floor(weatherData.main.temp - 273.15))
+            // console.log("Humidity : ",weatherData.main.humidity)
+            // console.log("Humidity : ",weatherData.main.humidity)
 
             const response = await fetch('/recommend', {
                 method: 'POST',

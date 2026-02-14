@@ -8,7 +8,7 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        min-height: calc(100vh - 80px); 
+        min-height: calc(100vh - 80px);
         padding: 40px 20px;
         background: url("{{ url_for('static', filename='css/rec.jpg') }}") no-repeat center center/cover;
         background-size: cover;
@@ -17,8 +17,13 @@
     }
 
     @keyframes zoomBackground {
-        from { background-size: 100%; }
-        to { background-size: 110%; }
+        from {
+            background-size: 100%;
+        }
+
+        to {
+            background-size: 110%;
+        }
     }
 
     .recommendation-wrapper::before {
@@ -36,7 +41,7 @@
         background: rgba(255, 255, 255, 0.9);
         padding: 30px 40px;
         border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         width: 100%;
         max-width: 600px;
         position: relative;
@@ -61,8 +66,13 @@
     }
 
     @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
 
     .form-group {
@@ -160,23 +170,32 @@
 <div class="recommendation-wrapper">
     <div class="solution-container">
         <h1>Personalized Recommendation</h1>
-        
+
         {% if success %}
         <div class="success-message">
             {{ success }}
         </div>
         {% endif %}
-        
+
         {% if error %}
         <div class="error-message">
             {{ error }}
         </div>
         {% endif %}
-        
+
         <form method="POST" action="/submit-recommendation">
             <div class="form-group">
-                <label for="location">Your Location</label>
-                <input type="text" id="location" name="location" placeholder="Enter your location" required>
+                <label for="state">Select State</label>
+                <select id="state" name="state" required onchange="populateDistricts()">
+                    <option value="">-- Select State --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="district">Select District</label>
+                <select id="district" name="district" required>
+                    <option value="">-- Select District --</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -198,11 +217,119 @@
 
             <button type="submit">Get Basic Recommendation</button>
         </form>
-        
-        <div class="analysis-link">
+
+        <!-- <div class="analysis-link">
             <p style="margin: 15px 0 10px; color: #666;">For detailed AI-powered crop analysis:</p>
             <a href="/crop-analysis">Advanced Crop Analysis</a>
-        </div>
+        </div> -->
     </div>
 </div>
+<!-- <script>
+const stateDistricts = {
+    "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik"],
+    "Karnataka": ["Bengaluru Urban", "Mysuru", "Mangalore", "Hubli"],
+    "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem"],
+    "Uttar Pradesh": ["Lucknow", "Kanpur", "Agra", "Varanasi"],
+    "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot"]
+};
+
+// Populate states on page load
+window.onload = function() {
+    const stateSelect = document.getElementById("state");
+    for (let state in stateDistricts) {
+        let option = document.createElement("option");
+        option.value = state;
+        option.text = state;
+        stateSelect.appendChild(option);
+    }
+};
+
+// Populate districts based on selected state
+function populateDistricts() {
+    const districtSelect = document.getElementById("district");
+    const stateSelect = document.getElementById("state");
+    const selectedState = stateSelect.value;
+
+    districtSelect.innerHTML = '<option value="">-- Select District --</option>';
+
+    if (selectedState !== "") {
+        stateDistricts[selectedState].forEach(function(district) {
+            let option = document.createElement("option");
+            option.value = district;
+            option.text = district;
+            districtSelect.appendChild(option);
+        });
+    }
+}
+</script> -->
+
+<script>
+let stateDistricts = {};
+
+window.onload = function () {
+
+    fetch("/static/json/India-State-District.json")
+        .then(response => response.json())
+        .then(data => {
+
+            // Convert flat JSON into grouped object
+            data.forEach(item => {
+                const state = item.StateName.trim();
+                const district = item["DistrictName(InEnglish)"].trim();
+
+                if (!stateDistricts[state]) {
+                    stateDistricts[state] = [];
+                }
+
+                stateDistricts[state].push(district);
+            });
+
+            populateStates();
+        })
+        .catch(error => {
+            console.error("Error loading JSON:", error);
+        });
+
+};
+
+function populateStates() {
+    const stateSelect = document.getElementById("state");
+
+    // Sort states alphabetically
+    const states = Object.keys(stateDistricts).sort();
+
+    states.forEach(state => {
+        let option = document.createElement("option");
+        option.value = state;
+        option.textContent = state;
+        stateSelect.appendChild(option);
+    });
+
+    // Add change event after states load
+    stateSelect.addEventListener("change", populateDistricts);
+}
+
+function populateDistricts() {
+    const stateSelect = document.getElementById("state");
+    const districtSelect = document.getElementById("district");
+    const selectedState = stateSelect.value;
+
+    districtSelect.innerHTML = '<option value="">-- Select District --</option>';
+
+    if (selectedState && stateDistricts[selectedState]) {
+
+        // Sort districts alphabetically
+        const districts = stateDistricts[selectedState].sort();
+
+        districts.forEach(district => {
+            let option = document.createElement("option");
+            option.value = district;
+            option.textContent = district;
+            districtSelect.appendChild(option);
+        });
+    }
+}
+</script>
+
+
 {% endblock %}
